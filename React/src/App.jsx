@@ -1,73 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState} from 'react';
+import SchedulerWithoutSearch from './components/SchedulerWithoutSearch';
+import {Form, GroupItem, SimpleItem} from 'devextreme-react/form';
+import {formatDate, startDay, endDay} from './utils';
+import {data} from './data';
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
 import './App.css';
 
-import Scheduler from "devextreme-react/scheduler";
-import TextBox from "devextreme-react/text-box";
-import CheckBox from 'devextreme-react/check-box';
-import DateBox from 'devextreme-react/date-box';
-
-import {resources} from "./data";
-import {generateAppointments, formatDate} from "./utils";
-
-const currentDate = new Date(2021, 1, 2);
-const views = [{
-    type: "timelineWorkWeek", name: "Timeline", groupOrientation: "vertical"
-}, {
-    type: "workWeek", groupOrientation: "vertical"
-}, {
-    type: "month", groupOrientation: "horizontal"
-}];
-
-const resourcesData = [{
-    fieldExpr: "humanId", dataSource: resources, label: "Employee"
-}];
-
-const scrolling = {mode: "virtual"};
-
-const groups = ["humanId"];
-
-const startDay = new Date(2021, 1, 1);
-const endDay = new Date(2021, 1, 28);
-const startDayHour = 8;
-const endDayHour = 20;
-
-const appointments = generateAppointments(startDay, endDay, startDayHour, endDayHour);
-
-const SchedulerWithoutSearch = (props) => {
-
-    return (<Scheduler
-        dataSource={props.dataSource}
-        height={600}
-        views={views}
-        defaultCurrentView="Timeline"
-        defaultCurrentDate={currentDate}
-        startDayHour={startDayHour}
-        endDayHour={endDayHour}
-        cellDuration={60}
-        showAllDayPanel={false}
-        scrolling={scrolling}
-        groups={groups}
-        resources={resourcesData}
-        templatesRenderAsynchronously={false}
-        width='80%'
-    />);
-}
-
-const SearchBoxForScheduler = (props) => {
-    return (<TextBox
-        mode="search"
-        valueChangeEvent="input"
-        value={props.searchValue}
-        onValueChanged={props.onSearchValueChanged}
-        placeholder="search..."
-        width='100%'
-    />);
-}
-
 const App = () => {
-    const [dates, setDates] = useState(appointments);
+    const [dates, setDates] = useState(data);
     const [searchValue, setSearchValue] = useState('');
     const [checkBoxValue, setCheckBoxValue] = useState(false);
     const [startDate, setStartDate] = useState(formatDate(startDay));
@@ -75,27 +16,31 @@ const App = () => {
 
     useEffect(() => {
         if (checkBoxValue) {
-            setDates(appointments.map((item) => {
+            setDates(data.map((item) => {
                 if (!item.text.toLowerCase().includes(searchValue.toLowerCase())) {
                     return {...item, disabled: true}
                 }
                 return item
             }))
         } else {
-            setDates(appointments.filter(function (e) {
+            setDates(data.filter(function (e) {
                 return e.text.toLowerCase().includes(searchValue.toLowerCase());
             }));
         }
     }, [searchValue, checkBoxValue])
 
     useEffect(() => {
-        setDates(appointments.filter((item) => {
+        setDates(data.filter((item) => {
             return formatDate(item.startDate) >= startDate && formatDate(item.endDate) <= endDate
         }));
-    },[startDate, setEndDate])
+    }, [startDate, setEndDate])
 
-    const onSearchValueChanged = (e) => {
-        setSearchValue(e.value);
+    const employee = {
+        search: searchValue,
+    };
+
+    const onSearchValueChanged = ({event}) => {
+        setSearchValue(event.currentTarget.value);
     }
 
     const handleValueChange = () => {
@@ -111,37 +56,63 @@ const App = () => {
         setEndDate(formatDate(e))
     }
 
-    return (<div className='container'>
-        <SchedulerWithoutSearch
-            searchValue={searchValue}
-            dataSource={dates}
-        />
-        <div className='tooltip'>
-            <SearchBoxForScheduler
+    const filterInputOptions = {
+        placeholder: 'Filter...',
+        onKeyUp: onSearchValueChanged
+    };
+
+    const checkBoxOptions = {
+        value: checkBoxValue,
+        text: 'Disabled Mode',
+        onValueChanged: handleValueChange
+    }
+
+    const startDateOptions = {
+        onValueChanged: handleStartDateChange,
+        type: 'datetime',
+        placeholder: '11/23/2022, 1:54 PM'
+    }
+
+    const endDateOptions = {
+        onValueChanged: handleEndDateChange,
+        type: 'datetime',
+        placeholder: '12/30/2022, 3:26 PM'
+    }
+
+    return (
+        <div className='container'>
+            <SchedulerWithoutSearch
                 searchValue={searchValue}
-                onSearchValueChanged={onSearchValueChanged}
+                dataSource={dates}
             />
-            <CheckBox
-                text="Disabled Mode"
-                value={checkBoxValue}
-                onValueChanged={handleValueChange}
-            />
-            <DateBox
-                type="datetime"
-                placeholder="Start Date"
-                showClearButton={true}
-                useMaskBehavior={true}
-                onValueChange={handleStartDateChange}
-            />
-            <DateBox
-                type="datetime"
-                placeholder="End Date"
-                showClearButton={true}
-                useMaskBehavior={true}
-                onValueChange={handleEndDateChange}
-            />
+            <Form
+                formData={employee}
+                labelMode='hidden'
+                width='100%'
+            >
+                <GroupItem>
+                    <SimpleItem
+                        dataField='search'
+                        editorOptions={filterInputOptions}
+                    />
+                    <SimpleItem
+                        editorType='dxCheckBox'
+                        editorOptions={checkBoxOptions}
+                    />
+                    <GroupItem>
+                        <SimpleItem
+                            editorType='dxDateBox'
+                            editorOptions={startDateOptions}
+                        />
+                        <SimpleItem
+                            editorType='dxDateBox'
+                            editorOptions={endDateOptions}
+                        />
+                    </GroupItem>
+                </GroupItem>
+            </Form>
         </div>
-    </div>);
+    );
 }
 
 export default App;
