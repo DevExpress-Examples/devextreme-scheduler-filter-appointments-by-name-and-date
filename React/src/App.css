@@ -14,10 +14,6 @@
     padding: 9px 20px;
 }
 
-#root .tooltip > div:not(:first-child) {
-    margin-top: 20px;
-}
-
 .container {
     display: flex;
 }

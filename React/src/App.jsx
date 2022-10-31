@@ -48,7 +48,6 @@ const App = () => {
     }
 
     const handleStartDateChange = (e) => {
-
         setStartDate(formatDate(e))
     }
 
