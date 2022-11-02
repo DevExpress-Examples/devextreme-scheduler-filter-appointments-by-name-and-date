@@ -1,5 +1,5 @@
 import React, {memo, useMemo} from "react";
-import {Form, GroupItem, SimpleItem} from "devextreme-react/form";
+import {Form, GroupItem, SimpleItem, Label} from "devextreme-react/form";
 import {startViewDate, endViewDate} from "../../config";
 
 const FilterForm = memo((props) => {
@@ -24,14 +24,13 @@ const FilterForm = memo((props) => {
 
     const startDateOptions = useMemo(() => ({
         onValueChanged: onStartDateChange,
-        type: 'datetime',
-        placeholder: '11/23/2022, 1:54 PM',
+        type: 'date',
         value: startViewDate
     }), [onStartDateChange]);
 
     const endDateOptions = useMemo(() => ({
         onValueChanged: onEndDateChange,
-        type: 'datetime',
+        type: 'date',
         value: endViewDate
     }), [onEndDateChange]);
 
@@ -39,21 +38,23 @@ const FilterForm = memo((props) => {
         <Form>
             <GroupItem>
                 <SimpleItem
-                    dataField='Text'
+                    editorType='dxTextBox'
                     editorOptions={filterInputOptions}
-                />
-                <GroupItem>
-                    <SimpleItem
-                        dataField='Start date'
-                        editorType='dxDateBox'
-                        editorOptions={startDateOptions}
-                    />
-                    <SimpleItem
-                        dataField='End date'
-                        editorType='dxDateBox'
-                        editorOptions={endDateOptions}
-                    />
-                </GroupItem>
+                >
+                    <Label text='Text'/>
+                </SimpleItem>
+                <SimpleItem
+                    editorType='dxDateBox'
+                    editorOptions={startDateOptions}
+                >
+                    <Label text='Start Date'/>
+                </SimpleItem>
+                <SimpleItem
+                    editorType='dxDateBox'
+                    editorOptions={endDateOptions}
+                >
+                    <Label text='End Date'/>
+                </SimpleItem>
                 <SimpleItem
                     editorType='dxCheckBox'
                     editorOptions={checkBoxOptions}
