@@ -1,44 +1,42 @@
 import React, {memo, useMemo} from "react";
 import {Form, GroupItem, SimpleItem} from "devextreme-react/form";
-import {startDay, endDay} from "../config";
+import {startViewDate, endViewDate} from "../../config";
 
 const FilterForm = memo((props) => {
     const {
-        onSearchValueChanged,
-        onHandleCheckboxChange,
-        onHandleStartDateChange,
-        onHandleEndDateChange,
-        checkBoxValue
+        onFilterValueChanged,
+        onCheckboxChange,
+        onStartDateChange,
+        onEndDateChange,
+        useDisable
     } = props;
 
     const filterInputOptions = useMemo(() => ({
         placeholder: 'Filter...',
-        onKeyUp: onSearchValueChanged
-    }), [onSearchValueChanged]);
+        onKeyUp: onFilterValueChanged
+    }), [onFilterValueChanged]);
 
     const checkBoxOptions = useMemo(() => ({
-        value: checkBoxValue,
+        value: useDisable,
         text: 'Disable appointment are not filtered',
-        onValueChanged: onHandleCheckboxChange
-    }), [checkBoxValue, onHandleCheckboxChange]);
+        onValueChanged: onCheckboxChange
+    }), [useDisable, onCheckboxChange]);
 
     const startDateOptions = useMemo(() => ({
-        onValueChanged: onHandleStartDateChange,
+        onValueChanged: onStartDateChange,
         type: 'datetime',
         placeholder: '11/23/2022, 1:54 PM',
-        value: startDay
-    }), [onHandleStartDateChange]);
+        value: startViewDate
+    }), [onStartDateChange]);
 
     const endDateOptions = useMemo(() => ({
-        onValueChanged: onHandleEndDateChange,
+        onValueChanged: onEndDateChange,
         type: 'datetime',
-        value: endDay
-    }), [onHandleEndDateChange]);
+        value: endViewDate
+    }), [onEndDateChange]);
 
     return (
-        <Form
-            width='100%'
-        >
+        <Form>
             <GroupItem>
                 <SimpleItem
                     dataField='Text'

@@ -1,7 +1,7 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import CustomScheduler from './components/CustomScheduler';
 import FilterForm from './components/FilterForm';
-import {formatDate, startDay, endDay} from './config';
+import {startViewDate, endViewDate} from './config';
 import {data} from './data';
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
@@ -9,56 +9,43 @@ import './App.css';
 
 const App = () => {
     const [appointments, setAppointments] = useState(data);
-    const [searchValue, setSearchValue] = useState('');
-    const [checkBoxValue, setCheckBoxValue] = useState(false);
-    const [startDate, setStartDate] = useState(formatDate(startDay));
-    const [endDate, setEndDate] = useState(formatDate(endDay));
+    const [filterValue, setFilterValue] = useState('');
+    const [useDisable, SetUseDisable] = useState(false);
+    const [startDate, setStartDate] = useState(startViewDate);
+    const [endDate, setEndDate] = useState(endViewDate);
 
-    useEffect(() => {
-        if (checkBoxValue) {
-            setAppointments(data.filter(item =>
-                formatDate(item.startDate) >= startDate &&
-                formatDate(item.endDate) <= endDate
-            ).map(item => !item.text.toLowerCase().includes(searchValue.toLowerCase()) ?
-                {...item, disabled: true} :
-                item
-            ))
-        } else {
-            setAppointments(data.filter(item =>
-                item.text.toLowerCase().includes(searchValue.toLowerCase()) &&
-                (formatDate(item.startDate) >= startDate && formatDate(item.endDate) <= endDate)
-            ));
-        }
-    }, [searchValue, checkBoxValue, startDate, endDate])
-
-    const onSearchValueChanged = useCallback(({event}) => {
-        setSearchValue(event.currentTarget.value);
+    const onFilterValueChanged = useCallback(({event}) => {
+        setFilterValue(event.currentTarget.value.toLowerCase());
     }, []);
 
-    const onHandleCheckboxChange = useCallback(() => {
-        setCheckBoxValue(!checkBoxValue);
-    }, [checkBoxValue]);
+    const onCheckboxChange = useCallback(() => {
+        SetUseDisable(!useDisable);
+    }, [useDisable]);
 
-    const onHandleStartDateChange = useCallback((e) => {
-        setStartDate(formatDate(e.value));
+    const onStartDateChange = useCallback((e) => {
+        setStartDate(e.value);
     }, []);
 
-    const onHandleEndDateChange = useCallback((e) => {
-        setEndDate(formatDate(e));
+    const onEndDateChange = useCallback((e) => {
+        setEndDate(e.value);
     }, []);
 
     return (
         <div className='container'>
             <CustomScheduler
-                searchValue={searchValue}
+                filterValue={filterValue}
                 dataSource={appointments}
+                setAppointments={setAppointments}
+                useDisable={useDisable}
+                startDate={startDate}
+                endDate={endDate}
             />
             <FilterForm
-                onSearchValueChanged={onSearchValueChanged}
-                onHandleCheckboxChange={onHandleCheckboxChange}
-                onHandleStartDateChange={onHandleStartDateChange}
-                onHandleEndDateChange={onHandleEndDateChange}
-                checkBoxValue={checkBoxValue}
+                onFilterValueChanged={onFilterValueChanged}
+                onCheckboxChange={onCheckboxChange}
+                onStartDateChange={onStartDateChange}
+                onEndDateChange={onEndDateChange}
+                useDisable={useDisable}
             />
         </div>
     );
