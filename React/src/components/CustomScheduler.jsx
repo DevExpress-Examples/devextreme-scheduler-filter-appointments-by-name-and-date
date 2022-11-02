@@ -1,11 +1,10 @@
 import React from "react";
 import Scheduler from "devextreme-react/scheduler";
-import {views, currentDate, startDayHour, endDayHour, scrolling, groups, resourcesData} from "../utils";
+import {views, currentDate, startDayHour, endDayHour, scrolling, groups, resourcesData} from "../config";
 
-const SchedulerWithoutSearch = (props) => {
+const CustomScheduler = (props) => {
     return (<Scheduler
         dataSource={props.dataSource}
-        height={600}
         views={views}
         defaultCurrentView="Timeline"
         defaultCurrentDate={currentDate}
@@ -21,4 +20,4 @@ const SchedulerWithoutSearch = (props) => {
     />);
 };
 
-export default SchedulerWithoutSearch;
+export default CustomScheduler;
