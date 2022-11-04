@@ -10,19 +10,19 @@ const filterAppointments = (startDate, endDate, filterValue, appointment) => {
     return isExistByDate && isExistByText;
 }
 
+const createFilteredAppointments = (startDate, endDate, filterValue, useDisable) => {
+    if (useDisable)
+        return data.map(appointment => ({
+            ...appointment,
+            disabled: !filterAppointments(startDate, endDate, filterValue, appointment)
+        }));
+    return data.filter((appointment) => filterAppointments(startDate, endDate, filterValue, appointment));
+}
+
 const CustomScheduler = (props) => {
     const {
         filterValue, dataSource, useDisable, setAppointments, startDate, endDate
     } = props;
-
-    const createFilteredAppointments = (startDate, endDate, filterValue, useDisable) => {
-        if (useDisable)
-            return data.map(appointment => ({
-                ...appointment,
-                disabled: !filterAppointments(startDate, endDate, filterValue, appointment)
-            }));
-        return data.filter((appointment) => filterAppointments(startDate, endDate, filterValue, appointment));
-    }
 
     useEffect(() => {
         setAppointments(createFilteredAppointments(startDate, endDate, filterValue, useDisable))
