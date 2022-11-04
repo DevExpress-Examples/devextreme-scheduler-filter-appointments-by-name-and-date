@@ -116,7 +116,7 @@ let textInputValue;
 
 const filterAppointments = (startDate, endDate, filterValue, appointment) => {
     const isExistByDate = new Date(appointment.startDate) >= startDate && new Date(appointment.endDate) <= endDate;
-    const isExistByText = appointment.text.toLowerCase().includes(filterValue);
+    const isExistByText = appointment.text.toLowerCase().includes(filterValue.toLowerCase());
 
     return isExistByDate && isExistByText;
 }
