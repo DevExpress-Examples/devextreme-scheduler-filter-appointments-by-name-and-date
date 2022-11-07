@@ -10,7 +10,7 @@ import './App.css';
 const App = () => {
     const [appointments, setAppointments] = useState(data);
     const [filterValue, setFilterValue] = useState('');
-    const [useDisable, SetUseDisable] = useState(false);
+    const [useDisable, setUseDisable] = useState(false);
     const [startDate, setStartDate] = useState(startViewDate);
     const [endDate, setEndDate] = useState(endViewDate);
 
@@ -19,7 +19,7 @@ const App = () => {
     }, []);
 
     const onCheckboxChange = useCallback(() => {
-        SetUseDisable(!useDisable);
+        setUseDisable(!useDisable);
     }, [useDisable]);
 
     const onStartDateChange = useCallback((e) => {
