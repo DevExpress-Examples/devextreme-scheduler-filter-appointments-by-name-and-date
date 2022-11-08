@@ -1,4 +1,100 @@
 $(() => {
+    const filterTextBoxSettings = {
+        dataField: 'text',
+        editorType: 'dxTextBox',
+        label: {
+            text: 'Text',
+            location: 'left',
+        },
+        value: '',
+        editorOptions: {
+            placeholder: 'Filter...',
+            onKeyUp: ({event}) => {
+                updateSchedulerDataSource(
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value'),
+                    form.getEditor('checkBox').option('value'),
+                    event.target.value,
+                    scheduler
+                );
+            }
+        }
+    };
+    const startDateSettings = {
+        dataField: 'startDate',
+        editorType: 'dxDateBox',
+        value: new Date(2022, 9, 1),
+        label: {
+            text: 'Start Date',
+            location: 'left',
+        },
+        editorOptions: {
+            type: 'date',
+            onValueChanged: (e) => {
+                textInputValue = form.getEditor('text').option('value');
+
+                form.option(form.getEditor('startDate').option('value'), e.value);
+
+                updateSchedulerDataSource(
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value'),
+                    form.getEditor('checkBox').option('value'),
+                    textInputValue,
+                    scheduler
+                );
+            }
+        },
+    };
+    const endDateSettings = {
+        dataField: 'endDate',
+        editorType: 'dxDateBox',
+        value: new Date(2022, 9, 28),
+        label: {
+            text: 'End Date',
+            location: 'left',
+        },
+        editorOptions: {
+            type: 'date',
+            onValueChanged: (e) => {
+                textInputValue = form.getEditor('text').option('value');
+
+                form.option(form.getEditor('endDate').option('value'), e.value);
+
+                updateSchedulerDataSource(
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value'),
+                    form.getEditor('checkBox').option('value'),
+                    textInputValue,
+                    scheduler
+                );
+            }
+        },
+    };
+    const checkBoxSettings = {
+        dataField: 'checkBox',
+        editorType: 'dxCheckBox',
+        value: false,
+        label: {
+            text: 'Disable appointment are not filtered',
+            location: 'left',
+        },
+        editorOptions: {
+            onValueChanged: (e) => {
+                textInputValue = form.getEditor('text').option('value');
+
+                form.option(form.getEditor('checkBox').option('value'), e.value);
+
+                updateSchedulerDataSource(
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value'),
+                    form.getEditor('checkBox').option('value'),
+                    textInputValue,
+                    scheduler
+                );
+            }
+        }
+    };
+
     const form = $('#form').dxForm({
         formData: employees,
         colCount: 1,
@@ -6,98 +102,12 @@ $(() => {
         items: [{
             itemType: 'group',
             caption: 'Filtering appointments',
-            items: [{
-                dataField: 'text',
-                editorType: 'dxTextBox',
-                label: {
-                    text: 'Text',
-                    location: 'left',
-                },
-                value: '',
-                editorOptions: {
-                    placeholder: 'Filter...',
-                    onKeyUp: ({event}) => {
-                        updateSchedulerDataSource(
-                            form.getEditor('startDate').option('value'),
-                            form.getEditor('endDate').option('value'),
-                            form.getEditor('checkBox').option('value'),
-                            event.target.value,
-                            scheduler
-                        );
-                    }
-                }
-            }, {
-                dataField: 'startDate',
-                editorType: 'dxDateBox',
-                value: new Date(2022, 9, 1),
-                label: {
-                    text: 'Start Date',
-                    location: 'left',
-                },
-                editorOptions: {
-                    type: 'date',
-                    onValueChanged: (e) => {
-                        textInputValue = form.getEditor('text').option('value');
-
-                        form.option(form.getEditor('startDate').option('value'), e.value);
-
-                        updateSchedulerDataSource(
-                            form.getEditor('startDate').option('value'),
-                            form.getEditor('endDate').option('value'),
-                            form.getEditor('checkBox').option('value'),
-                            textInputValue,
-                            scheduler
-                        );
-                    }
-                },
-            }, {
-                dataField: 'endDate',
-                editorType: 'dxDateBox',
-                value: new Date(2022, 9, 28),
-                label: {
-                    text: 'End Date',
-                    location: 'left',
-                },
-                editorOptions: {
-                    type: 'date',
-                    onValueChanged: (e) => {
-                        textInputValue = form.getEditor('text').option('value');
-
-                        form.option(form.getEditor('endDate').option('value'), e.value);
-
-                        updateSchedulerDataSource(
-                            form.getEditor('startDate').option('value'),
-                            form.getEditor('endDate').option('value'),
-                            form.getEditor('checkBox').option('value'),
-                            textInputValue,
-                            scheduler
-                        );
-                    }
-                },
-            }, {
-                dataField: 'checkBox',
-                editorType: 'dxCheckBox',
-                value: false,
-                label: {
-                    text: 'Disable appointment are not filtered',
-                    location: 'left',
-                },
-                editorOptions: {
-                    onValueChanged: (e) => {
-                        textInputValue = form.getEditor('text').option('value');
-
-                        form.option(form.getEditor('checkBox').option('value'), e.value);
-
-                        updateSchedulerDataSource(
-                            form.getEditor('startDate').option('value'),
-                            form.getEditor('endDate').option('value'),
-                            form.getEditor('checkBox').option('value'),
-                            textInputValue,
-                            scheduler
-                        );
-                    }
-                }
-            }],
+            items: [
+                filterTextBoxSettings,
+                startDateSettings,
+                endDateSettings,
+                checkBoxSettings
+            ],
         }],
     }).dxForm('instance');
 
