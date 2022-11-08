@@ -31,7 +31,7 @@ $(() => {
         editorOptions: {
             type: 'date',
             onValueChanged: (e) => {
-                textInputValue = form.getEditor('text').option('value');
+                const textInputValue = form.getEditor('text').option('value');
 
                 form.option(form.getEditor('startDate').option('value'), e.value);
 
@@ -56,7 +56,7 @@ $(() => {
         editorOptions: {
             type: 'date',
             onValueChanged: (e) => {
-                textInputValue = form.getEditor('text').option('value');
+                const textInputValue = form.getEditor('text').option('value');
 
                 form.option(form.getEditor('endDate').option('value'), e.value);
 
@@ -80,7 +80,7 @@ $(() => {
         },
         editorOptions: {
             onValueChanged: (e) => {
-                textInputValue = form.getEditor('text').option('value');
+                const textInputValue = form.getEditor('text').option('value');
 
                 form.option(form.getEditor('checkBox').option('value'), e.value);
 
@@ -127,8 +127,6 @@ $(() => {
     }).dxScheduler('instance');
 });
 
-let textInputValue;
-
 const employees = {
     text: '',
     startDate: new Date(2022, 9, 1),
@@ -149,7 +147,7 @@ const updateSchedulerDataSource = (startDate, endDate, useDisable, filterValue, 
             ...appointment,
             disabled: !filterAppointments(startDate, endDate, filterValue, appointment)
         })));
-    return scheduler.option('dataSource', data.filter((appointment) => filterAppointments(startDate, endDate, filterValue, appointment)));
+    scheduler.option('dataSource', data.filter((appointment) => filterAppointments(startDate, endDate, filterValue, appointment)));
 };
 
 const data = [
