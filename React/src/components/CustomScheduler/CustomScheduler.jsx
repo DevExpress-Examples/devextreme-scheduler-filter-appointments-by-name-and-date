@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import Scheduler from "devextreme-react/scheduler";
-import {views, currentDate, startDayHour, endDayHour, scrolling} from "./config";
+import {views, currentDate} from "./config";
 import {data} from "../../data";
 
 const filterAppointments = (startDate, endDate, filterValue, appointment) => {
@@ -31,14 +31,8 @@ const CustomScheduler = (props) => {
     return (<Scheduler
         dataSource={dataSource}
         views={views}
-        defaultCurrentView="Timeline"
+        defaultCurrentView="month"
         defaultCurrentDate={currentDate}
-        startDayHour={startDayHour}
-        endDayHour={endDayHour}
-        cellDuration={60}
-        showAllDayPanel={false}
-        scrolling={scrolling}
-        templatesRenderAsynchronously={false}
         width='80%'
     />);
 };

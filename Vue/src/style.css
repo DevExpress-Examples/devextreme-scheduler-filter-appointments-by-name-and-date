@@ -1,0 +1,19 @@
+#app .dx-scheduler-cell-sizes-vertical {
+  height: 100px;
+}
+
+#app .dx-scheduler-cell-sizes-horizontal {
+  width: 150px;
+}
+
+#app .dx-form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(221, 221, 221, .6);
+  padding: 9px 20px;
+  margin-left: 10px;
+}
+
+.container {
+  display: flex;
+}

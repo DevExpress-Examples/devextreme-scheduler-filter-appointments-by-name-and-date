@@ -9,12 +9,12 @@ $(() => {
         value: '',
         editorOptions: {
             placeholder: 'Filter...',
-            onKeyUp: ({event}) => {
+            onKeyUp: (e) => {
                 updateSchedulerDataSource(
                     form.getEditor('startDate').option('value'),
                     form.getEditor('endDate').option('value'),
                     form.getEditor('checkBox').option('value'),
-                    event.target.value,
+                    e.component.option('text'),
                     scheduler
                 );
             }
@@ -112,18 +112,14 @@ $(() => {
     }).dxForm('instance');
 
     const scheduler = $('#scheduler').dxScheduler({
-        timeZone: 'America/Los_Angeles',
-        width: '80%',
         dataSource: data,
         views: [{
             type: 'month',
             groupOrientation: 'horizontal'
         }],
+        width: '80%',
         currentView: 'month',
         currentDate: new Date(2022, 9, 1),
-        startDayHour: 1,
-        endDayHour: 23,
-        height: 600,
     }).dxScheduler('instance');
 });
 
