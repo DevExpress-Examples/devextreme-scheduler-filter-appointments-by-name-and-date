@@ -1,11 +1,3 @@
-#app .dx-scheduler-cell-sizes-vertical {
-  height: 100px;
-}
-
-#app .dx-scheduler-cell-sizes-horizontal {
-  width: 150px;
-}
-
 #app .dx-form {
   display: flex;
   flex-direction: column;

@@ -3,7 +3,7 @@
       :data-source='dataSource'
       :views='views'
       :current-date='currentDate'
-      current-view='year'
+      current-view='month'
       :width='width'
   />
 </template>
