@@ -1,0 +1,16 @@
+<div class="container">
+  <app-custom-scheduler
+    [dataSource]="dataSource"
+    [startDate]="startDate"
+    [endDate]="endDate"
+  >
+  </app-custom-scheduler>
+  <app-filter-form
+    (onFilterValueChange)="onFilterValueChange($event)"
+    (onCheckboxChange)="onCheckboxChange()"
+    (onStartDateChange)="onStartDateChange($event)"
+    (onEndDateChange)="onEndDateChange($event)"
+    [useDisable]="useDisable"
+  >
+  </app-filter-form>
+</div>
