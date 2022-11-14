@@ -4,7 +4,7 @@ import FilterForm from './components/FilterForm';
 import {startViewDate, endViewDate} from './config';
 import {data} from './data';
 import 'devextreme/dist/css/dx.common.css';
-import 'devextreme/dist/css/dx.light.css';
+import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import './App.css';
 
 const App = () => {
