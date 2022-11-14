@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, Input, EventEmitter} from '@angular/core';
 import {OptionChangedEvent} from "devextreme/ui/form";
 import {startViewDate, endViewDate} from "../../config";
-import {ICheckBoxOptions, IDateOptions, IFilterInputOptions} from "../custom-scheduler/config";
+import {ICheckBoxOptions, IDateOptions, IFilterInputOptions} from "./config";
 
 @Component({
   selector: 'app-filter-form',
