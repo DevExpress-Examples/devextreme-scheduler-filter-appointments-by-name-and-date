@@ -21,7 +21,6 @@ export class AppComponent {
     endDate: new Date(2022, 9, 28),
     useDisable: false,
   };
-  useDisable: boolean = false;
 
   onFilterValuesChange(newFilterValues: FilterValues): void {
     this.filterValues = newFilterValues;

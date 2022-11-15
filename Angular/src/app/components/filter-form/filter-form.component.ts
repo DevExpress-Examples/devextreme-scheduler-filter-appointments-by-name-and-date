@@ -12,7 +12,6 @@ import {ICheckBoxOptions, IDateOptions, IFilterInputOptions, OnKeyUpEvent} from 
 export class FilterFormComponent implements OnInit {
   @Input() filterValues: FilterValues;
   @Output() filterValuesChange = new EventEmitter<FilterValues>();
-  @Input() useDisable: boolean;
 
   filterInputOptions: IFilterInputOptions;
   startDateOptions: IDateOptions;
