@@ -1,0 +1,13 @@
+<div class="container">
+  <dx-scheduler
+    class="scheduler"
+    currentView="month"
+    [dataSource]="dataSource"
+    [views]="['month']"
+    [currentDate]="currentDate">
+  </dx-scheduler>
+  <app-filter-form
+    [filterValues]="filterValues"
+    (filterValuesChange)="onFilterValuesChange($event)">
+  </app-filter-form>
+</div>
