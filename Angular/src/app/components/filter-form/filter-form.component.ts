@@ -1,7 +1,7 @@
-import {Component, OnInit, Output, Input, EventEmitter} from '@angular/core';
-import {OptionChangedEvent} from "devextreme/ui/form";
-import {startViewDate, endViewDate} from "../../config";
-import {ICheckBoxOptions, IDateOptions, IFilterInputOptions} from "./config";
+import {Component, OnInit, Output, Input, EventEmitter, NgZone} from '@angular/core';
+import {OptionChangedEvent} from 'devextreme/ui/form';
+import {FilterValues} from '../../interfaces';
+import {ICheckBoxOptions, IDateOptions, IFilterInputOptions, OnKeyUpEvent} from './interfaces';
 
 @Component({
   selector: 'app-filter-form',
@@ -10,10 +10,8 @@ import {ICheckBoxOptions, IDateOptions, IFilterInputOptions} from "./config";
 })
 
 export class FilterFormComponent implements OnInit {
-  @Output() onFilterValueChange = new EventEmitter<OptionChangedEvent>();
-  @Output() onCheckboxChange = new EventEmitter<OptionChangedEvent>();
-  @Output() onStartDateChange = new EventEmitter<OptionChangedEvent>();
-  @Output() onEndDateChange = new EventEmitter<OptionChangedEvent>();
+  @Input() filterValues: FilterValues;
+  @Output() filterValuesChange = new EventEmitter<FilterValues>();
   @Input() useDisable: boolean;
 
   filterInputOptions: IFilterInputOptions;
@@ -21,24 +19,48 @@ export class FilterFormComponent implements OnInit {
   endDateOptions: IDateOptions;
   checkBoxOptions: ICheckBoxOptions;
 
+  constructor(private zone: NgZone) {
+  }
+
   ngOnInit(): void {
     this.filterInputOptions = {
+      value: this.filterValues.query,
       placeholder: 'Filter...',
-      onKeyUp: (e: OptionChangedEvent) => this.onFilterValueChange.emit(e)
+      onKeyUp: (event: OnKeyUpEvent) => {
+        const query = event?.event?.currentTarget?.value?.toLowerCase() || '';
+        this.emitNewFilterValues({query});
+      }
     }
     this.startDateOptions = {
-      value: startViewDate,
-      onValueChanged: (e: OptionChangedEvent) => this.onStartDateChange.emit(e)
+      value: this.filterValues.startDate,
+      onValueChanged: ({value}: OptionChangedEvent) => {
+        this.zone.run(() => {
+          this.emitNewFilterValues({startDate: value});
+        });
+      }
     }
     this.endDateOptions = {
-      value: endViewDate,
-      onValueChanged: (e: OptionChangedEvent) => this.onEndDateChange.emit(e)
+      value: this.filterValues.endDate,
+      onValueChanged: ({value}: OptionChangedEvent) => {
+        this.zone.run(() => {
+          this.emitNewFilterValues({endDate: value});
+        });
+      }
     }
     this.checkBoxOptions = {
-      value: this.useDisable,
+      value: this.filterValues.useDisable,
       text: 'Disable appointment are not filtered',
-      onValueChanged: () => this.onCheckboxChange.emit()
+      onValueChanged: ({value}: OptionChangedEvent) => {
+        this.emitNewFilterValues({useDisable: value});
+      }
     }
+  }
+
+  private emitNewFilterValues(newValues: Partial<FilterValues>): void {
+    this.filterValuesChange.emit({
+      ...this.filterValues,
+      ...newValues,
+    });
   }
 }
 

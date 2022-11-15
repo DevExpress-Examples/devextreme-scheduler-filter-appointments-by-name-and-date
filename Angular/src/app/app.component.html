@@ -1,16 +1,13 @@
 <div class="container">
-  <app-custom-scheduler
+  <dx-scheduler
+    class="scheduler"
+    currentView="month"
     [dataSource]="dataSource"
-    [startDate]="startDate"
-    [endDate]="endDate"
-  >
-  </app-custom-scheduler>
+    [views]="['month']"
+    [currentDate]="currentDate">
+  </dx-scheduler>
   <app-filter-form
-    (onFilterValueChange)="onFilterValueChange($event)"
-    (onCheckboxChange)="onCheckboxChange()"
-    (onStartDateChange)="onStartDateChange($event)"
-    (onEndDateChange)="onEndDateChange($event)"
-    [useDisable]="useDisable"
-  >
+    [filterValues]="filterValues"
+    (filterValuesChange)="onFilterValuesChange($event)">
   </app-filter-form>
 </div>

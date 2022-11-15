@@ -1,3 +1,8 @@
 .container {
   display: flex;
 }
+
+.scheduler {
+  display: block;
+  width: 80%;
+}

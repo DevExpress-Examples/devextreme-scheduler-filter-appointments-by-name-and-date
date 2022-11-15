@@ -1,6 +1,4 @@
-import { Injectable } from '@angular/core';
-
-export class Appointment {
+export interface Appointment {
   text: string;
   startDate: Date;
   endDate: Date;
@@ -273,10 +271,3 @@ export const data: Appointment[] = [
     "endDate": new Date(2022, 10, 25),
   }
 ];
-
-@Injectable()
-export class Service {
-  getAppointments(): Appointment[] {
-    return data;
-  }
-}
