@@ -10,12 +10,10 @@ $(() => {
         editorOptions: {
             placeholder: 'Filter...',
             onKeyUp: (e) => {
-                updateSchedulerDataSource(
-                    form.getEditor('startDate').option('value'),
-                    form.getEditor('endDate').option('value'),
-                    form.getEditor('checkBox').option('value'),
+                filterAppointments(
                     e.component.option('text'),
-                    scheduler
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value')
                 );
             }
         }
@@ -35,12 +33,10 @@ $(() => {
 
                 form.option(form.getEditor('startDate').option('value'), e.value);
 
-                updateSchedulerDataSource(
-                    form.getEditor('startDate').option('value'),
-                    form.getEditor('endDate').option('value'),
-                    form.getEditor('checkBox').option('value'),
+                filterAppointments(
                     textInputValue,
-                    scheduler
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value')
                 );
             }
         },
@@ -60,39 +56,13 @@ $(() => {
 
                 form.option(form.getEditor('endDate').option('value'), e.value);
 
-                updateSchedulerDataSource(
-                    form.getEditor('startDate').option('value'),
-                    form.getEditor('endDate').option('value'),
-                    form.getEditor('checkBox').option('value'),
+                filterAppointments(
                     textInputValue,
-                    scheduler
+                    form.getEditor('startDate').option('value'),
+                    form.getEditor('endDate').option('value')
                 );
             }
         },
-    };
-    const checkBoxSettings = {
-        dataField: 'checkBox',
-        editorType: 'dxCheckBox',
-        value: false,
-        label: {
-            text: 'Disable appointment are not filtered',
-            location: 'left',
-        },
-        editorOptions: {
-            onValueChanged: (e) => {
-                const textInputValue = form.getEditor('text').option('value');
-
-                form.option(form.getEditor('checkBox').option('value'), e.value);
-
-                updateSchedulerDataSource(
-                    form.getEditor('startDate').option('value'),
-                    form.getEditor('endDate').option('value'),
-                    form.getEditor('checkBox').option('value'),
-                    textInputValue,
-                    scheduler
-                );
-            }
-        }
     };
 
     const form = $('#form').dxForm({
@@ -105,14 +75,13 @@ $(() => {
             items: [
                 filterTextBoxSettings,
                 startDateSettings,
-                endDateSettings,
-                checkBoxSettings
+                endDateSettings
             ],
         }],
     }).dxForm('instance');
 
-    const scheduler = $('#scheduler').dxScheduler({
-        dataSource: data,
+    $('#scheduler').dxScheduler({
+        dataSource: defaultData,
         views: [{
             type: 'month'
         }],
@@ -122,27 +91,22 @@ $(() => {
     }).dxScheduler('instance');
 });
 
+const filterAppointments = (filterValue, startDate, endDate) => {
+    defaultData.filter([
+        ['text', 'contains', filterValue],
+        "and",
+        ['startDate', '>=', startDate],
+        "and",
+        ['endDate', '<=', endDate]
+    ])
+    defaultData.load()
+};
+
 const employees = {
     text: '',
     startDate: new Date(2022, 9, 1),
     endDate: new Date(2022, 9, 28),
     checkBox: false,
-};
-
-const filterAppointments = (startDate, endDate, filterValue, appointment) => {
-    const isExistByDate = new Date(appointment.startDate) >= startDate && new Date(appointment.endDate) <= endDate;
-    const isExistByText = appointment.text.toLowerCase().includes(filterValue.toLowerCase());
-
-    return isExistByDate && isExistByText;
-};
-
-const updateSchedulerDataSource = (startDate, endDate, useDisable, filterValue, scheduler) => {
-    if (useDisable)
-        return scheduler.option('dataSource', data.map(appointment => ({
-            ...appointment,
-            disabled: !filterAppointments(startDate, endDate, filterValue, appointment)
-        })));
-    scheduler.option('dataSource', data.filter((appointment) => filterAppointments(startDate, endDate, filterValue, appointment)));
 };
 
 const data = [
@@ -412,3 +376,11 @@ const data = [
         "endDate": new Date(2022, 10, 25),
     }
 ];
+
+const defaultData = new DevExpress.data.DataSource({
+    store: {
+        type: 'array',
+        data: data,
+    },
+    paginate: false,
+})

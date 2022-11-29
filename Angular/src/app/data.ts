@@ -1,10 +1,13 @@
+import {Injectable} from "@angular/core";
+import {Observable, of} from "rxjs";
+
 export interface Appointment {
   text: string;
   startDate: Date;
   endDate: Date;
 }
 
-export const data: Appointment[] = [
+const data: Appointment[] = [
   {
     "text": "Brochure Design Review",
     "startDate": new Date(2022, 9, 1),
@@ -271,3 +274,10 @@ export const data: Appointment[] = [
     "endDate": new Date(2022, 10, 25),
   }
 ];
+
+@Injectable()
+export class Service {
+  getValues(): Observable<Appointment[]> {
+    return of(data);
+  }
+}

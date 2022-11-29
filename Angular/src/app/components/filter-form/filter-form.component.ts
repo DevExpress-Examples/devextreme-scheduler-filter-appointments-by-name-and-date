@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, Input, EventEmitter, NgZone} from '@angular/core';
 import {OptionChangedEvent} from 'devextreme/ui/form';
 import {FilterValues} from '../../interfaces';
-import {ICheckBoxOptions, IDateOptions, IFilterInputOptions, OnKeyUpEvent} from './interfaces';
+import {IDateOptions, IFilterInputOptions, OnKeyUpEvent} from './interfaces';
 
 @Component({
   selector: 'app-filter-form',
@@ -16,7 +16,6 @@ export class FilterFormComponent implements OnInit {
   filterInputOptions: IFilterInputOptions;
   startDateOptions: IDateOptions;
   endDateOptions: IDateOptions;
-  checkBoxOptions: ICheckBoxOptions;
 
   constructor(private zone: NgZone) {
   }
@@ -46,13 +45,6 @@ export class FilterFormComponent implements OnInit {
         });
       }
     }
-    this.checkBoxOptions = {
-      value: this.filterValues.useDisable,
-      text: 'Disable appointment are not filtered',
-      onValueChanged: ({value}: OptionChangedEvent) => {
-        this.emitNewFilterValues({useDisable: value});
-      }
-    }
   }
 
   private emitNewFilterValues(newValues: Partial<FilterValues>): void {
@@ -62,4 +54,3 @@ export class FilterFormComponent implements OnInit {
     });
   }
 }
-
