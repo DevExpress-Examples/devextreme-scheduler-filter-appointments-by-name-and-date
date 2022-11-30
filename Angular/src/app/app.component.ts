@@ -16,7 +16,7 @@ import {Appointment, Service} from './data';
 
 export class AppComponent {
   data$ = this.service.getValues();
-  defaultData: Appointment[];
+  filterDataSource: Appointment[];
   dataSource: DataSource;
   currentDate: Date = new Date(2022, 9, 1);
   filterValues: FilterValues = {
@@ -28,12 +28,12 @@ export class AppComponent {
 
   constructor(public service: Service) {
     this.data$.subscribe(res=> {
-      this.defaultData = res
+      this.filterDataSource = res
     })
     this.dataSource = new DataSource({
       store: {
         type: 'array',
-        data: this.defaultData,
+        data: this.filterDataSource,
       },
       paginate: false,
     })
@@ -48,9 +48,9 @@ export class AppComponent {
   private createFilteredAppointments(filterValues: FilterValues) {
      this.dataSource.filter([
       ['text', 'contains', filterValues.query],
-      "and",
+      'and',
       ['startDate', '>=', filterValues.startDate],
-      "and",
+      'and',
       ['endDate', '<=', filterValues.endDate]
     ])
     return this.dataSource.load()

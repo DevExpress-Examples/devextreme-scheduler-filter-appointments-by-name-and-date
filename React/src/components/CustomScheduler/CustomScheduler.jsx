@@ -10,9 +10,9 @@ const CustomScheduler = (props) => {
     useEffect(() => {
         dataSource.filter([
             ['text', 'contains', filterValue],
-            "and",
+            'and',
             ['startDate', '>=', startDate],
-            "and",
+            'and',
             ['endDate', '<=', endDate]
         ])
         dataSource.load()

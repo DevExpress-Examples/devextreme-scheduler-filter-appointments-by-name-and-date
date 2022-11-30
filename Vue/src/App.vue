@@ -24,7 +24,7 @@ import {
 import {data} from './data.js';
 import './style.css';
 
-const defaultData = new DataSource({
+const filterDataSource = new DataSource({
   store: {
     type: 'array',
     data: data,
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      dataSource: defaultData,
+      dataSource: filterDataSource,
       startDate: startViewDate,
       endDate: endViewDate,
       filterValue: '',
@@ -63,14 +63,14 @@ export default {
       this.filterAppointments(this.filterValue, this.startDate, this.endDate);
     },
     filterAppointments(filterValue, startDate, endDate) {
-      defaultData.filter([
+      filterDataSource.filter([
         ['text', 'contains', filterValue],
-        "and",
+        'and',
         ['startDate', '>=', startDate],
-        "and",
+        'and',
         ['endDate', '<=', endDate]
       ])
-      defaultData.load()
+      filterDataSource.load()
     }
   }
 };

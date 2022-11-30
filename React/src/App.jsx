@@ -8,7 +8,7 @@ import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import './App.css';
 
-const defaultData = new DataSource({
+const filterDataSource = new DataSource({
     store: {
         type: 'array',
         data: data,
@@ -36,7 +36,7 @@ const App = () => {
     return (
         <div className='container'>
             <CustomScheduler
-                dataSource={defaultData}
+                dataSource={filterDataSource}
                 filterValue={filterValue}
                 startDate={startDate}
                 endDate={endDate}
