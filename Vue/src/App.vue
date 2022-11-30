@@ -2,15 +2,11 @@
   <div class='container'>
     <CustomScheduler
         :dataSource='dataSource'
-        :startDate='startDate'
-        :endDate='endDate'
     />
     <FilterForm
         :onFilterValueChange='onFilterValueChange'
-        :onCheckboxChange='onCheckboxChange'
         :onStartDateChange='onStartDateChange'
         :onEndDateChange='onEndDateChange'
-        :useDisable='useDisable'
     />
   </div>
 </template>
@@ -18,6 +14,7 @@
 <script>
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
+import DataSource from 'devextreme/data/data_source';
 import CustomScheduler from '@/components/CustomScheduler';
 import FilterForm from '@/components/FilterForm';
 import {
@@ -27,6 +24,14 @@ import {
 import {data} from './data.js';
 import './style.css';
 
+const filterDataSource = new DataSource({
+  store: {
+    type: 'array',
+    data: data,
+  },
+  paginate: false,
+})
+
 export default {
   name: 'App',
   components: {
@@ -35,8 +40,7 @@ export default {
   },
   data() {
     return {
-      dataSource: data,
-      useDisable: false,
+      dataSource: filterDataSource,
       startDate: startViewDate,
       endDate: endViewDate,
       filterValue: '',
@@ -46,56 +50,27 @@ export default {
     onFilterValueChange({event}) {
       this.filterValue = event.currentTarget.value.toLowerCase();
 
-      this.dataSource = this.createFilteredAppointments(
-          this.startDate,
-          this.endDate,
-          this.filterValue,
-          this.useDisable
-      )
-    },
-    onCheckboxChange() {
-      this.useDisable = !this.useDisable;
-
-      this.dataSource = this.createFilteredAppointments(
-          this.startDate,
-          this.endDate,
-          this.filterValue,
-          this.useDisable
-      )
+      this.filterAppointments(this.filterValue, this.startDate, this.endDate);
     },
     onStartDateChange(e) {
       this.startDate = e.value;
 
-      this.dataSource = this.createFilteredAppointments(
-          this.startDate,
-          this.endDate,
-          this.filterValue,
-          this.useDisable
-      )
+      this.filterAppointments(this.filterValue, this.startDate, this.endDate);
     },
     onEndDateChange(e) {
       this.endDate = e.value;
 
-      this.dataSource = this.createFilteredAppointments(
-          this.startDate,
-          this.endDate,
-          this.filterValue,
-          this.useDisable
-      )
+      this.filterAppointments(this.filterValue, this.startDate, this.endDate);
     },
-    filterAppointments(startDate, endDate, filterValue, appointment) {
-      const isExistByDate = new Date(appointment.startDate) >= startDate && new Date(appointment.endDate) <= endDate;
-      const isExistByText = appointment.text.toLowerCase().includes(filterValue);
-
-      return isExistByDate && isExistByText;
-    },
-    createFilteredAppointments(startDate, endDate, filterValue, useDisable) {
-      if (useDisable)
-        return data.map(appointment => ({
-          ...appointment,
-          disabled: !this.filterAppointments(startDate, endDate, filterValue, appointment)
-        }));
-      return data.filter((appointment) => this.filterAppointments(startDate, endDate, filterValue, appointment));
+    filterAppointments(filterValue, startDate, endDate) {
+      filterDataSource.filter([
+        ['text', 'contains', filterValue],
+        'and',
+        ['startDate', '>=', startDate],
+        'and',
+        ['endDate', '<=', endDate]
+      ])
+      filterDataSource.load()
     }
   }
 };

@@ -1,4 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import themes from 'devextreme/ui/themes';
 
-createApp(App).mount('#app')
+themes.initialized(() => {
+    createApp(App).mount('#app')
+});

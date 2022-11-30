@@ -4,7 +4,7 @@ export interface Appointment {
   endDate: Date;
 }
 
-export const data: Appointment[] = [
+export const appointments: Appointment[] = [
   {
     "text": "Brochure Design Review",
     "startDate": new Date(2022, 9, 1),

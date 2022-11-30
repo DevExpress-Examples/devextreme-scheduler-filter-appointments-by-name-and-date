@@ -22,10 +22,6 @@
       >
         <DxLabel text='End Date'/>
       </DxSimpleItem>
-      <DxSimpleItem
-          editorType='dxCheckBox'
-          :editorOptions='checkBoxOptions'
-      />
     </DxGroupItem>
   </DxForm>
 </template>
@@ -38,10 +34,8 @@ export default {
   name: 'FilterForm',
   props: [
     'onFilterValueChange',
-    'onCheckboxChange',
     'onStartDateChange',
     'onEndDateChange',
-    'useDisable'
   ],
   components: {
     DxForm,
@@ -64,11 +58,6 @@ export default {
       endDateOptions: {
         value: endViewDate,
         onValueChanged: this.onEndDateChange
-      },
-      checkBoxOptions: {
-        value: this.useDisable,
-        text: 'Disable appointment are not filtered',
-        onValueChanged: this.onCheckboxChange
       }
     };
   },

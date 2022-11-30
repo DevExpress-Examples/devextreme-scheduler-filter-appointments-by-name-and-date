@@ -9,12 +9,6 @@ export interface IDateOptions {
   onValueChanged: any;
 }
 
-export interface ICheckBoxOptions {
-  value: boolean;
-  text: string;
-  onValueChanged: any;
-}
-
 export interface OnKeyUpEvent {
   event: { currentTarget: { value: string}};
 }

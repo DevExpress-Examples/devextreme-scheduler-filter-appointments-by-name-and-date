@@ -1,10 +1,7 @@
-import {NgModule, Component} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {DxSchedulerModule, DxFormModule} from 'devextreme-angular';
-import {FilterFormComponent} from './components/filter-form/filter-form.component';
+import {Component} from '@angular/core';
+import DataSource from 'devextreme/data/data_source';
 import {FilterValues} from './interfaces';
-import {Appointment, data} from './data';
+import {appointments} from './data/appointments'
 
 @Component({
   selector: 'demo-app',
@@ -13,53 +10,34 @@ import {Appointment, data} from './data';
 })
 
 export class AppComponent {
-  dataSource = data;
+  dataSource: DataSource = new DataSource({
+    store: {
+      type: 'array',
+      data: appointments,
+    },
+    paginate: false
+  })
   currentDate: Date = new Date(2022, 9, 1);
   filterValues: FilterValues = {
     query: '',
     startDate: new Date(2022, 9, 1),
-    endDate: new Date(2022, 9, 28),
-    useDisable: false,
+    endDate: new Date(2022, 9, 28)
   };
 
   onFilterValuesChange(newFilterValues: FilterValues): void {
     this.filterValues = newFilterValues;
 
-    this.dataSource = this.createFilteredAppointments(this.filterValues);
+    this.createFilteredAppointments(this.filterValues);
   }
 
   private createFilteredAppointments(filterValues: FilterValues) {
-    const { useDisable} = filterValues;
-    if (useDisable)
-      return data.map(appointment => ({
-        ...appointment,
-        disabled: !this.isAppointmentVisible(appointment, filterValues)
-      }));
-    return data.filter((appointment) => this.isAppointmentVisible(appointment, filterValues));
-  }
-
-  private isAppointmentVisible(appointment: Appointment, filterValues: FilterValues) {
-    const { startDate, endDate, query} = filterValues;
-    const isExistByDate = new Date(appointment.startDate) >= startDate && new Date(appointment.endDate) <= endDate;
-    const isExistByText = appointment.text.toLowerCase().includes(query);
-
-    return isExistByDate && isExistByText;
+     this.dataSource.filter([
+      ['text', 'contains', filterValues.query],
+      'and',
+      ['startDate', '>=', filterValues.startDate],
+      'and',
+      ['endDate', '<=', filterValues.endDate]
+    ])
+    return this.dataSource.load()
   }
 }
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    FilterFormComponent,
-  ],
-  imports: [
-    BrowserModule,
-    DxSchedulerModule,
-    DxFormModule
-  ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule);
