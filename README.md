@@ -5,6 +5,6 @@
 <!-- default badges end -->
 
 # Scheduler for DevExtreme - How to filter appointments by name and date
-This example demonstrates how to use the resource navigator to filter Schedules appointments by text and date, and change visibility of appointments
+This example demonstrates how to use the resource navigator to filter Schedules appointments by text and date.
 
-![demo](https://user-images.githubusercontent.com/53352872/201936041-694f52fa-272b-4c48-8d52-d8c5ecefb21b.gif)
+![demo](https://user-images.githubusercontent.com/53352872/204739997-78561331-78af-40f5-ba3a-10303f4e9c1b.gif)

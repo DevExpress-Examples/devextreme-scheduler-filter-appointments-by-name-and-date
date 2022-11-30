@@ -1,26 +1,18 @@
-import React, {memo, useMemo} from "react";
-import {Form, GroupItem, SimpleItem, Label} from "devextreme-react/form";
-import {startViewDate, endViewDate} from "../../config";
+import React, {memo, useMemo} from 'react';
+import {Form, GroupItem, SimpleItem, Label} from 'devextreme-react/form';
+import {startViewDate, endViewDate} from '../../config';
 
 const FilterForm = memo((props) => {
     const {
-        onFilterValueChanged,
-        onCheckboxChange,
+        onTextValueChanged,
         onStartDateChange,
-        onEndDateChange,
-        useDisable
+        onEndDateChange
     } = props;
 
     const filterInputOptions = useMemo(() => ({
         placeholder: 'Filter...',
-        onKeyUp: onFilterValueChanged
-    }), [onFilterValueChanged]);
-
-    const checkBoxOptions = useMemo(() => ({
-        value: useDisable,
-        text: 'Disable appointment are not filtered',
-        onValueChanged: onCheckboxChange
-    }), [useDisable, onCheckboxChange]);
+        onKeyUp: onTextValueChanged
+    }), [onTextValueChanged]);
 
     const startDateOptions = useMemo(() => ({
         onValueChanged: onStartDateChange,
@@ -55,10 +47,6 @@ const FilterForm = memo((props) => {
                 >
                     <Label text='End Date'/>
                 </SimpleItem>
-                <SimpleItem
-                    editorType='dxCheckBox'
-                    editorOptions={checkBoxOptions}
-                />
             </GroupItem>
         </Form>
     )

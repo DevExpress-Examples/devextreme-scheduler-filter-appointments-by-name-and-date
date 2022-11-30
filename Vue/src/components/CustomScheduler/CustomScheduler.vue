@@ -19,8 +19,6 @@ export default {
   name: 'CustomScheduler',
   props: [
     'dataSource',
-    'startDate',
-    'endDate'
   ],
   components: {
     DxScheduler,
