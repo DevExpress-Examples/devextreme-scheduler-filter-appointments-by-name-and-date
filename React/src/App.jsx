@@ -21,7 +21,7 @@ const App = () => {
     const [startDate, setStartDate] = useState(startViewDate);
     const [endDate, setEndDate] = useState(endViewDate);
 
-    const onFilterValueChanged = useCallback(({event}) => {
+    const onTextValueChanged = useCallback(({event}) => {
         setFilterValue(event.currentTarget.value.toLowerCase());
     }, []);
 
@@ -42,7 +42,7 @@ const App = () => {
                 endDate={endDate}
             />
             <FilterForm
-                onFilterValueChanged={onFilterValueChanged}
+                onTextValueChanged={onTextValueChanged}
                 onStartDateChange={onStartDateChange}
                 onEndDateChange={onEndDateChange}
             />

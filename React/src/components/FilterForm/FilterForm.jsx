@@ -4,15 +4,15 @@ import {startViewDate, endViewDate} from "../../config";
 
 const FilterForm = memo((props) => {
     const {
-        onFilterValueChanged,
+        onTextValueChanged,
         onStartDateChange,
         onEndDateChange
     } = props;
 
     const filterInputOptions = useMemo(() => ({
         placeholder: 'Filter...',
-        onKeyUp: onFilterValueChanged
-    }), [onFilterValueChanged]);
+        onKeyUp: onTextValueChanged
+    }), [onTextValueChanged]);
 
     const startDateOptions = useMemo(() => ({
         onValueChanged: onStartDateChange,
