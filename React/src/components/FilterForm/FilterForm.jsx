@@ -1,6 +1,6 @@
-import React, {memo, useMemo} from "react";
-import {Form, GroupItem, SimpleItem, Label} from "devextreme-react/form";
-import {startViewDate, endViewDate} from "../../config";
+import React, {memo, useMemo} from 'react';
+import {Form, GroupItem, SimpleItem, Label} from 'devextreme-react/form';
+import {startViewDate, endViewDate} from '../../config';
 
 const FilterForm = memo((props) => {
     const {
