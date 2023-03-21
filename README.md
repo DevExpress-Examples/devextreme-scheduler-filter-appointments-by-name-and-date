@@ -7,28 +7,33 @@
 
 This example demonstrates how to drag and drop multiple selected rows at once.
 
-Put a screenshot/gif that illustrates the result here.
+![grid-drag-multiple-rows](https://user-images.githubusercontent.com/13280527/226650938-08e5b3df-c543-4c56-b06c-aa4b97e8dd17.gif)
 
-Then, add implementation details (steps, code snippets, and other technical information in a free form), or add a link to an existing document with implementation details. 
+This implementation includes solutions for both local and remote data sources. It is based on our demos which illustrate how to drag a single row:
+- [Demo: Local Reordering](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/LocalReordering/jQuery/Light/)
+- [Demo: Remote Reordering](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/RemoteReordering/jQuery/Light/)
+
+describe an alternative for backend batch implementation
+
 
 ## Files to Review
 
 - **jQuery**
-    - [GridLocalData.js](jQuery/src/GridLocalData.js)
+	- [GridLocalData.js](jQuery/src/GridLocalData.js)
 	- [GridRemoteData.js](jQuery/src/GridRemoteData.js)
 - **Angular**
-    - [data-grid-local-data.component.html](Angular/src/app/components/data-grid-local-data/data-grid-local-data.component.html)
+	- [data-grid-local-data.component.html](Angular/src/app/components/data-grid-local-data/data-grid-local-data.component.html)
 	- [data-grid-local-data.component.ts](Angular/src/app/components/data-grid-local-data/data-grid-local-data.component.ts)
 	- [data-grid-remote-data.component.html](Angular/src/app/components/data-grid-remote-data/data-grid-remote-data.component.html)
 	- [data-grid-remote-data.component.ts](Angular/src/app/components/data-grid-remote-data/data-grid-remote-data.component.ts)
 - **Vue**
-    - [DataGridLocalData.vue](Vue/src/components/DataGridLocalData.vue)
+	- [DataGridLocalData.vue](Vue/src/components/DataGridLocalData.vue)
 	- [DataGridRemoteData.vue](Vue/src/components/DataGridRemoteData.vue)
 - **React**
-    - [DataGridLocalData.tsx](React/src/DataGridLocalData.tsx)
+	- [DataGridLocalData.tsx](React/src/DataGridLocalData.tsx)
 	- [DataGridRemoteData.tsx](React/src/DataGridRemoteData.tsx)
 - **NetCore**    
-    - [DataGridLocal.cshtml](ASP.NET_Core/Views/PartialViews/DataGridLocal.cshtml)
+	- [DataGridLocal.cshtml](ASP.NET_Core/Views/PartialViews/DataGridLocal.cshtml)
 	- [DataGridRemote.cshtml](ASP.NET_Core/Views/PartialViews/DataGridRemote.cshtml)
 
 ## Documentation
@@ -37,6 +42,4 @@ Then, add implementation details (steps, code snippets, and other technical info
 
 ## More Examples
 
-[Example: DevExtreme TreeView - How to drag and drop multiple items] (https://github.com/DevExpress-Examples/devextreme-treeview-drag-and-drop-multiple-items)
-[Demo: Local Reordering](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/LocalReordering/jQuery/Light/)
-[Demo: Remote Reordering](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/RemoteReordering/jQuery/Light/)
+[DevExtreme TreeView - How to drag and drop multiple items](https://github.com/DevExpress-Examples/devextreme-treeview-drag-and-drop-multiple-items)
