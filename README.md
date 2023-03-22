@@ -40,8 +40,11 @@ Use the [DataGrid.rowDragging](https://js.devexpress.com/Documentation/ApiRefere
 	- [DataGridLocalData.tsx](React/src/DataGridLocalData.tsx)
 	- [DataGridRemoteData.tsx](React/src/DataGridRemoteData.tsx)
 - **NetCore**    
-	- [DataGridLocal.cshtml](ASP.NET_Core/Views/PartialViews/DataGridLocal.cshtml)
-	- [DataGridRemote.cshtml](ASP.NET_Core/Views/PartialViews/DataGridRemote.cshtml)
+	- [DataGridLocal.cshtml](<ASP.NET Core/Views/PartialViews/DataGridLocal.cshtml>)
+	- [DataGridRemote.cshtml](<ASP.NET Core/Views/PartialViews/DataGridRemote.cshtml>)
+	- [GridLocal.js.js](<ASP.NET Core/wwwroot/js/GridLocal.js>)
+	- [GridRemote.js](<ASP.NET Core/wwwroot/js/GridRemote.js>)
+	
 
 ## Documentation
 
