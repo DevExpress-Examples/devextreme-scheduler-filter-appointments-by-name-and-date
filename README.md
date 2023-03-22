@@ -5,16 +5,23 @@
 <!-- default badges end -->
 # DataGrid for DevExtreme - How to drag multiple rows
 
-This example demonstrates how to drag and drop multiple selected rows at once.
+This example demonstrates how to simultaneously drag and drop multiple selected rows.
 
 ![grid-drag-multiple-rows](https://user-images.githubusercontent.com/13280527/226650938-08e5b3df-c543-4c56-b06c-aa4b97e8dd17.gif)
 
-This implementation includes solutions for both local and remote data sources. It is based on our demos which illustrate how to drag a single row:
+This implementation includes solutions for both local and remote data sources. It is based on our demos that illustrate how to drag a single row:
 - [Demo: Local Reordering](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/LocalReordering/jQuery/Light/)
 - [Demo: Remote Reordering](https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/RemoteReordering/jQuery/Light/)
 
-describe an alternative for backend batch implementation
+The implementation for remote data sources sends multiple requests to update the order index of every dropped row. If your back-end supports batch updates, you can simultaneously send all data updates in a custom way.
 
+## Implementation Details
+
+Use the [DataGrid.rowDragging](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/rowDragging/) object to configure the drag and drop functionality:
+1) Handle the [RowDragging.onDragStart](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/rowDragging/#onDragStart) event to collect selected rows and cancel the drag operation if a user attempts to drag non-selected rows.
+2) Handle the [RowDragging.onDragChange](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/rowDragging/#onDragChange) event to cancel the drop operation if a user attempts to drop rows to the same position.
+3) Handle the [RowDragging.onReorder](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/rowDragging/#onReorder) event to re-order rows in the data source.
+4) Define [RowDragging.dragTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/rowDragging/#dragTemplate) to arrange cell values of selected rows for the dragged item.
 
 ## Files to Review
 
