@@ -5,6 +5,26 @@
 <!-- default badges end -->
 
 # Scheduler for DevExtreme - How to filter appointments by name and date
+
 This example demonstrates how to use the resource navigator to filter Schedules appointments by text and date.
 
 ![demo](https://user-images.githubusercontent.com/53352872/204739997-78561331-78af-40f5-ba3a-10303f4e9c1b.gif)
+
+## Files to Review
+
+- **Angular**
+    - [app.component.html](Angular/src/app/app.component.html)
+    - [app.component.ts](Angular/src/app/app.component.ts)
+- **jQuery**
+    - [index.html](jQuery/src/index.html)
+    - [index.js](jQuery/src/index.jsx)
+- **React**
+    - [App.js](React/src/App.js)
+- **Vue**
+    - [App.vue](Vue/src/App.vue)
+
+## Documentation
+
+- [Getting Started with Scheduler](https://js.devexpress.com/Documentation/Guide/UI_Components/Scheduler/Getting_Started_with_Scheduler/)
+
+- [Scheduler - API Reference](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxScheduler/)
