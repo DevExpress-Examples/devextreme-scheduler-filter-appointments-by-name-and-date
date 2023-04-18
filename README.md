@@ -52,4 +52,5 @@ Use the [DataGrid.rowDragging](https://js.devexpress.com/Documentation/ApiRefere
 
 ## More Examples
 
-[DevExtreme TreeView - How to drag and drop multiple items](https://github.com/DevExpress-Examples/devextreme-treeview-drag-and-drop-multiple-items)
+[TreeView for DevExtreme - How to drag and drop multiple items](https://github.com/DevExpress-Examples/devextreme-treeview-drag-and-drop-multiple-items)
+[DataGrid for DevExtreme - How to drag multiple rows between two grids](https://github.com/DevExpress-Examples/devextreme-datagrid-drag-multiple-rows-between-grids)
