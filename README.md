@@ -17,7 +17,7 @@ This example demonstrates how to use the resource navigator to filter Schedules 
     - [app.component.ts](Angular/src/app/app.component.ts)
 - **jQuery**
     - [index.html](jQuery/src/index.html)
-    - [index.js](jQuery/src/index.jsx)
+    - [index.js](jQuery/src/index.js)
 - **React**
     - [App.js](React/src/App.js)
 - **Vue**
