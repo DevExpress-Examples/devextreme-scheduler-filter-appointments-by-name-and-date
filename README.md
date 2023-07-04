@@ -19,7 +19,7 @@ This example demonstrates how to use the resource navigator to filter Schedules 
     - [index.html](jQuery/src/index.html)
     - [index.js](jQuery/src/index.js)
 - **React**
-    - [App.js](React/src/App.js)
+    - [App.js](React/src/App.jsx)
 - **Vue**
     - [App.vue](Vue/src/App.vue)
 
