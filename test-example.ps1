@@ -1,4 +1,3 @@
-
 param (
     [string]$version = "latest"
 )
