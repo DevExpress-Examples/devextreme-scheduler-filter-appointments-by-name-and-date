@@ -1,6 +1,10 @@
 param (
     [string]$version = "latest"
 )
+$branchName = $env:branchName
+
+Write-Host "Branch name: $branchName"
+$global:errorCode = 0
 
 function Process-JavaScriptProjects {
     param (
@@ -20,17 +24,17 @@ function Process-JavaScriptProjects {
         Set-Location $folder
 
         Write-Host "Running 'npm install' in $folder"
-        $installResult = & npm install -PassThru
+        $installResult = & npm install --loglevel=error -PassThru
         if ($LASTEXITCODE -ne 0) {
             Write-Error "npm install failed in $folder"
-            $errorCode = 1
+            $global:errorCode = 1
         }
 
         Write-Host "Running 'npm run build' in $folder"
-        $buildResult = & npm run build -PassThru
+        $buildResult = & npm run build
         if ($LASTEXITCODE -ne 0) {
             Write-Error "npm run build failed in $folder"
-            $errorCode = 1
+            $global:errorCode = 1
         }
 
         Set-Location ..
@@ -41,13 +45,14 @@ function Process-DotNetProjects {
     param (
         [string]$RootDirectory = "."
     )
-    Write-Host "`nProcessing .NET Projects";
+    Write-Host "`nProcessing .NET Projects"
 
     $slnFiles = Get-ChildItem -Path $RootDirectory -Filter *.sln -Recurse -Depth 1
 
     if ($slnFiles.Count -eq 0) {
         Write-Host "No solution files (.sln) found in the specified directory at level 1."
-        exit 1
+        $global:errorCode = 1
+        return
     }
 
     foreach ($slnFile in $slnFiles) {
@@ -58,16 +63,16 @@ function Process-DotNetProjects {
         if ($LASTEXITCODE -eq 0) {
             Write-Host "Build succeeded for $($slnFile.FullName)."
         } else {
-            Write-Host "Build failed for $($slnFile.FullName)."
-            errorCode = 1;
+            Write-Error "Build failed for $($slnFile.FullName)."
+            $global:errorCode = 1
         }
     }
 } 
-
-$errorCode = 0;
 
 Write-Host "Version: $version"
 Process-JavaScriptProjects
 Process-DotNetProjects
 
-exit $errorCode
+Write-Host "Error code: $global:errorCode"
+
+exit $global:errorCode
