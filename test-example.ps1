@@ -1,7 +1,7 @@
 param (
     [string]$version = "latest"
 )
-$global:build = $env:BUILD_NUMBER
+$global:build = $env:buildVersion
 
 Write-Host "Build number: $build"
 $global:errorCode = 0
