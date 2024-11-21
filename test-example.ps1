@@ -1,39 +1,56 @@
 param (
     [string]$version = "latest"
 )
-$buildNumber = $env:BUILD_NUMBER
+$global:build = $env:BUILD_NUMBER
 
-Write-Host "Build number: $buildNumber"
+Write-Host "Build number: $build"
 $global:errorCode = 0
 
 function Process-JavaScriptProjects {
     param (
         [string]$Path = ".",
-        [string[]]$Folders = @("jQuery", "Angular", "Vue", "React")
+        [hashtable[]]$Folders = @(
+            @{ Name = "jQuery"; Packages = @("devextreme", "devextreme-dist") },
+            @{ Name = "Angular"; Packages = @("devextreme", "devextreme-angular") },
+            @{ Name = "Vue"; Packages = @("devextreme", "devextreme-vue") },
+            @{ Name = "React"; Packages = @("devextreme", "devextreme-react") }
+        )
     )
     Write-Host "Processing JavaScript Projects"
 
     foreach ($folder in $Folders) {
-        if (-not (Test-Path $folder)) {
-            Write-Host "Directory $folder does not exist. Skipping..."
+        if (-not (Test-Path $($folder.Name))) {
+            Write-Host "Directory $($folder.Name) does not exist. Skipping..."
             continue
         }
 
-        Write-Host "`nProcessing folder: $folder"
+        Write-Host "`nProcessing folder: $($folder.Name)"
         
-        Set-Location $folder
+        Set-Location $($folder.Name)
 
-        Write-Host "Running 'npm install' in $folder"
+        Write-Host "`nUpdating packages..."
+        foreach ($package in $($folder.Packages)) {
+            # Construct the npm install command
+            $command = "npm install $package@$global:build --save"
+
+            # Write the command for debugging
+            Write-Output "Running: $command"
+
+            # Run the command
+            Invoke-Expression $command
+        }
+
+        Write-Host "Running 'npm install' in $($folder.Name)"
         $installResult = & npm install --loglevel=error -PassThru
         if ($LASTEXITCODE -ne 0) {
-            Write-Error "npm install failed in $folder"
+            Write-Error "npm install failed in $($folder.Name)"
             $global:errorCode = 1
         }
 
-        Write-Host "Running 'npm run build' in $folder"
+        Write-Host "Running 'npm run build' in $($folder.Name)"
         $buildResult = & npm run build
         if ($LASTEXITCODE -ne 0) {
-            Write-Error "npm run build failed in $folder"
+            Write-Error "npm run build failed in $($folder.Name)"
             $global:errorCode = 1
         }
 
