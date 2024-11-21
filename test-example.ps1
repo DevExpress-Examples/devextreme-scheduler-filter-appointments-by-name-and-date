@@ -1,9 +1,9 @@
 param (
     [string]$version = "latest"
 )
-$branchName = $env:branchName
+$buildNumber = $env:BUILD_NUMBER
 
-Write-Host "Branch name: $branchName"
+Write-Host "Build number: $buildNumber"
 $global:errorCode = 0
 
 function Process-JavaScriptProjects {
