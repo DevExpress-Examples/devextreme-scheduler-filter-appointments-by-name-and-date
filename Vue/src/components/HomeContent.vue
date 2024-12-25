@@ -8,7 +8,7 @@ const props = defineProps({
   text: String,
 });
 const count = ref(0);
-const buttonText = computed<String>(
+const buttonText = computed<string>(
   () => `Click ${props.text}: ${count.value}`
 );
 function clickHandler() {
