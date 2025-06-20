@@ -4,23 +4,23 @@ import DxDataGrid, {
   DxSorting,
   DxRowDragging,
   DxSelection,
-} from "devextreme-vue/data-grid";
+} from 'devextreme-vue/data-grid';
 import type {
   RowDraggingStartEvent,
   RowDraggingChangeEvent,
   RowDraggingReorderEvent,
   Column,
-} from "devextreme/ui/data_grid";
-import type { Customer } from "../data";
-import type dxDataGrid from "devextreme/ui/data_grid";
+} from 'devextreme/ui/data_grid';
+import type { Customer } from '../data';
+import type dxDataGrid from 'devextreme/ui/data_grid';
 
-import { customers } from "../data";
+import { customers } from '../data';
 
 const props = defineProps({
   shouldClearSelection: Boolean,
 });
 
-const keyExpr: keyof Customer = "ID";
+const keyExpr: keyof Customer = 'ID';
 
 function reorder(e: RowDraggingReorderEvent) {
   const fullDataToInsert: Customer[] = [];
@@ -65,7 +65,7 @@ function getVisibleRowValues(rowsData: Customer[], grid: dxDataGrid) {
     const visibleValues: any = {};
     visbileColumns.forEach((column: Column) => {
       if (column.dataField)
-        visibleValues[column.dataField] = getVisibleCellValue(column, rowData);
+      { visibleValues[column.dataField] = getVisibleCellValue(column, rowData); }
     });
     return visibleValues;
   });
@@ -82,7 +82,10 @@ function getVisibleCellValue(column: Column, rowData: Customer) {
 }
 </script>
 <template>
-  <DxDataGrid :data-source="customers" key-expr="ID">
+  <DxDataGrid
+    :data-source="customers"
+    key-expr="ID"
+  >
     <DxRowDragging
       :allow-reordering="true"
       :on-reorder="reorder"
@@ -96,11 +99,11 @@ function getVisibleCellValue(column: Column, rowData: Customer) {
           <tr
             v-for="item in data.itemData"
             class="dragged-item"
-            v-bind:key="item[keyExpr]"
+            :key="item[keyExpr]"
           >
             <td
               v-for="key in Object.keys(item)"
-              v-bind:key="item[keyExpr] + key"
+              :key="item[keyExpr] + key"
             >
               {{ item[key] }}
             </td>
@@ -108,12 +111,15 @@ function getVisibleCellValue(column: Column, rowData: Customer) {
         </tbody>
       </table>
     </template>
-    <DxSelection mode="multiple" />
-    <DxSorting mode="none" />
-    <DxColumn data-field="ID" :width="55" />
-    <DxColumn data-field="CompanyName" />
-    <DxColumn data-field="Address" />
-    <DxColumn data-field="City" />
-    <DxColumn data-field="State" />
+    <DxSelection mode="multiple"/>
+    <DxSorting mode="none"/>
+    <DxColumn
+      data-field="ID"
+      :width="55"
+    />
+    <DxColumn data-field="CompanyName"/>
+    <DxColumn data-field="Address"/>
+    <DxColumn data-field="City"/>
+    <DxColumn data-field="State"/>
   </DxDataGrid>
 </template>

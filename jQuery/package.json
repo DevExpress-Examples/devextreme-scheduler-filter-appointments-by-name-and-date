@@ -6,7 +6,7 @@
     "build": "npm run lint",
     "lite": "lite-server -c ./bs-config.json",
     "lint-html": "prettier --check src/*",
-    "lint-js": "eslint --ext .js .",
+    "lint-js": "eslint --ext .js . --fix",
     "lint-css": "stylelint src/**/*.css --allow-empty-input",
     "lint": "npm-run-all -p -c lint-js lint-css lint-html"
   },

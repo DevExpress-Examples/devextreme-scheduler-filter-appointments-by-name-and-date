@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GridDataService } from '../services/grid-data.service';
+import { GridDataService } from './grid-data.service';
 
 describe('GridDataService', () => {
   let service: GridDataService;

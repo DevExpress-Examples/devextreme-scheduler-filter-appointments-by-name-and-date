@@ -61,6 +61,6 @@
         return column.lookup ? column.lookup.calculateCellValue(cellValue) : cellValue;
     },
     shouldClearSelection: function() {
-        return $("#clearAfterDropSwitch").dxSwitch("option", "value");
+        return $("#clear-after-drop-switch").dxSwitch("option", "value");
     }
 }

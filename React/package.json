@@ -17,6 +17,7 @@
   "dependencies": {
     "devextreme": "^24.2.3",
     "devextreme-react": "^24.2.3",
+    "devextreme-aspnet-data-nojquery": "^5.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
