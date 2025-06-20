@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DxDataGridModule, DxTabPanelModule, DxSwitchModule } from 'devextreme-angular';
+import { DxDataGridModule, DxTabPanelModule, DxSwitchModule } from "devextreme-angular";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataGridLocalDataComponent } from './components/data-grid-local-data/data-grid-local-data.component';
@@ -10,14 +10,14 @@ import { DataGridRemoteDataComponent } from './components/data-grid-remote-data/
   declarations: [
     AppComponent,
     DataGridLocalDataComponent,
-    DataGridRemoteDataComponent,
+    DataGridRemoteDataComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DxDataGridModule, DxTabPanelModule, DxSwitchModule,
+    DxDataGridModule, DxTabPanelModule, DxSwitchModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

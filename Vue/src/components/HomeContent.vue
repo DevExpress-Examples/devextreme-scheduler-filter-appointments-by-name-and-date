@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 
 import DxTabPanel, { DxItem } from 'devextreme-vue/tab-panel';
 import DxSwitch from 'devextreme-vue/switch';
@@ -13,19 +13,16 @@ const shouldClearSelection = ref(false);
     <div className="demo-header">
       <h3>DataGrid - Select multiple items and drag'n'drop</h3>
       <div id="toggle-container">
-        <span>Clear selection after drop</span>
-        <DxSwitch
-          id="clear-after-drop-switch"
-          v-model:value="shouldClearSelection"
-        />
+          <span>Clear selection after drop</span>
+          <DxSwitch id="clearAfterDropSwitch" v-model:value="shouldClearSelection"></DxSwitch>
       </div>
     </div>
     <DxTabPanel>
       <DxItem title="Local Data">
-        <DataGridLocalData :should-clear-selection="shouldClearSelection"/>
-      </DxItem>
+          <DataGridLocalData :should-clear-selection="shouldClearSelection"></DataGridLocalData>
+      </DxItem> 
       <DxItem title="Remote Data">
-        <DataGridRemoteData :should-clear-selection="shouldClearSelection"/>
+        <DataGridRemoteData :should-clear-selection="shouldClearSelection"></DataGridRemoteData>
       </DxItem>
     </DxTabPanel>
   </div>
@@ -41,7 +38,7 @@ const shouldClearSelection = ref(false);
   #toggle-container {
     padding-top: 20px;
   }
-  #clear-after-drop-switch {
+  #clearAfterDropSwitch {
     vertical-align: text-bottom;
   }
   #toggle-container span {

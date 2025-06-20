@@ -65,7 +65,7 @@
         return column.lookup ? column.lookup.calculateCellValue(cellValue) : cellValue;
     },
     shouldClearSelection: function () {
-        return $("#clear-after-drop-switch").dxSwitch("option", "value");
+        return $("#clearAfterDropSwitch").dxSwitch("option", "value");
     },
     beforeSend: function(method, ajaxOptions) {
         ajaxOptions.xhrFields = { withCredentials: true };

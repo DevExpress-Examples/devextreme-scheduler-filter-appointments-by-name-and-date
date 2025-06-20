@@ -6,24 +6,23 @@ import DxDataGrid, {
   DxLookup,
   DxScrolling,
   DxSelection,
-} from 'devextreme-vue/data-grid';
+} from "devextreme-vue/data-grid";
 import type {
 
   RowDraggingStartEvent,
   RowDraggingChangeEvent,
   RowDraggingReorderEvent,
   Column,
-} from 'devextreme/ui/data_grid';
-import type { Task } from '../data';
-import type dxDataGrid from 'devextreme/ui/data_grid';
-import { createStore } from 'devextreme-aspnet-data-nojquery';
-import type CustomStore from 'devextreme/data/custom_store';
+} from "devextreme/ui/data_grid";
+import type { Task } from "../data";
+import { createStore } from "devextreme-aspnet-data-nojquery";
+import type CustomStore from "devextreme/data/custom_store";
 
-const keyExpr: keyof Task = 'ID';
-const url = 'https://js.devexpress.com/Demos/Mvc/api/RowReordering';
+const keyExpr: keyof Task = "ID";
+const url = "https://js.devexpress.com/Demos/Mvc/api/RowReordering";
 
 const tasksStore: CustomStore = createStore({
-  key: 'ID',
+  key: "ID",
   loadUrl: `${url}/Tasks`,
   updateUrl: `${url}/UpdateTask`,
   onBeforeSend(method, ajaxOptions) {
@@ -31,7 +30,7 @@ const tasksStore: CustomStore = createStore({
   },
 });
 const employeesStore: CustomStore = createStore({
-  key: 'ID',
+  key: "ID",
   loadUrl: `${url}/Employees`,
   onBeforeSend(method, ajaxOptions) {
     ajaxOptions.xhrFields = { withCredentials: true };
@@ -57,7 +56,7 @@ function getVisibleRowValues(rowsData: Task[], grid: dxDataGrid) {
     const visibleValues: any = {};
     visbileColumns.forEach((column: Column) => {
       if (column.dataField)
-      { visibleValues[column.dataField] = getVisibleCellValue(column, rowData); }
+        visibleValues[column.dataField] = getVisibleCellValue(column, rowData);
     });
     return visibleValues;
   });
@@ -89,7 +88,7 @@ async function updateOrderIndex(e: RowDraggingReorderEvent) {
   const newOrderIndex = visibleRows[e.toIndex].data.OrderIndex;
   const store = e.component.getDataSource().store();
   updateInProgress = true;
-  e.component.beginCustomLoading('Loading...');
+  e.component.beginCustomLoading("Loading...");
   for (let i = 0; i < e.itemData.length; i++) {
     await store.update(e.itemData[i][keyExpr], { OrderIndex: newOrderIndex });
   }
@@ -105,11 +104,7 @@ function reorder(e: RowDraggingReorderEvent) {
 }
 </script>
 <template>
-  <DxDataGrid
-    :data-source="tasksStore"
-    :remote-operations="true"
-    :height="480"
-  >
+  <DxDataGrid :data-source="tasksStore" :remote-operations="true" :height="480">
     <DxRowDragging
       :allow-reordering="true"
       :on-reorder="reorder"
@@ -123,11 +118,11 @@ function reorder(e: RowDraggingReorderEvent) {
           <tr
             v-for="item in data.itemData"
             class="dragged-item"
-            :key="item[keyExpr]"
+            v-bind:key="item[keyExpr]"
           >
             <td
               v-for="key in Object.keys(item)"
-              :key="item[keyExpr] + key"
+              v-bind:key="item[keyExpr] + key"
             >
               {{ item[key] }}
             </td>
@@ -135,34 +130,24 @@ function reorder(e: RowDraggingReorderEvent) {
         </tbody>
       </table>
     </template>
-    <DxSelection mode="multiple"/>
-    <DxSorting mode="none"/>
-    <DxScrolling mode="virtual"/>
-    <DxColumn
-      data-field="ID"
-      :width="55"
-    />
-    <DxColumn
-      data-field="Owner"
-      :width="150"
-    >
+    <DxSelection mode="multiple" />
+    <DxSorting mode="none" />
+    <DxScrolling mode="virtual" />
+    <DxColumn data-field="ID" :width="55" />
+    <DxColumn data-field="Owner" :width="150">
       <DxLookup
         :data-source="employeesStore"
         value-expr="ID"
         display-expr="FullName"
       />
     </DxColumn>
-    <DxColumn
-      data-field="AssignedEmployee"
-      :width="150"
-      caption="Assignee"
-    >
+    <DxColumn data-field="AssignedEmployee" :width="150" caption="Assignee">
       <DxLookup
         :data-source="employeesStore"
         value-expr="ID"
         display-expr="FullName"
       />
     </DxColumn>
-    <DxColumn data-field="Subject"/>
+    <DxColumn data-field="Subject" />
   </DxDataGrid>
 </template>

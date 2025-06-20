@@ -14,7 +14,6 @@
   "dependencies": {
     "devextreme": "24.2.3",
     "devextreme-vue": "24.2.3",
-    "devextreme-aspnet-data-nojquery": "5.1.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
