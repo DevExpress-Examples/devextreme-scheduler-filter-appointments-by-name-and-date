@@ -5,7 +5,10 @@ import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import DxButton from 'devextreme-vue/button';
 
 const props = defineProps({
-  text: String,
+  text: {
+    type: String,
+    default: 'count',
+  },
 });
 const count = ref(0);
 const buttonText = computed<string>(

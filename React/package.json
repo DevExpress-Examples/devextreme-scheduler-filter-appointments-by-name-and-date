@@ -13,18 +13,11 @@
     "lint": "npm-run-all -p -c lint-ts lint-css",
     "preview": "vite preview"
   },
-  
   "dependencies": {
-    "devextreme": "^24.2.3",
-    "devextreme-react": "^24.2.3",
+    "devextreme": "25.1.3",
+    "devextreme-react": "25.1.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
