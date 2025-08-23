@@ -8,6 +8,8 @@
 
 This is the repository template for creating new examples. 
 
+![Example image](images/image-template.png)
+
 Use **DevExtreme _Product_ - _Task_** template for a title. 
 
 Describe the solved task in this section.
@@ -18,16 +20,18 @@ Then, add implementation details (steps, code snippets, and other technical info
 
 ## Files to Review
 
-- **jQuery**
-    - [index.js](jQuery/src/index.js)
 - **Angular**
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
-- **Vue**
-    - [Home.vue](Vue/src/components/HomeContent.vue)
 - **React**
     - [App.tsx](React/src/App.tsx)
-- **NetCore**    
+- **Vue**
+    - [App.vue](Vue/src/App.vue)
+    - [Home.vue](Vue/src/components/HomeContent.vue)
+- **jQuery**
+    - [index.html](jQuery/src/index.html)
+    - [index.js](jQuery/src/index.js)
+- **ASP.NET Core**    
     - [Index.cshtml](ASP.NET%20Core/Views/Home/Index.cshtml)
 
 ## Documentation
