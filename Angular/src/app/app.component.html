@@ -1,3 +1,12 @@
-<div class="default-style">
-  <dx-button [text]="buttonText" (onClick)="onClick($event)"></dx-button>
+<div class="container">
+  <dx-scheduler
+    class="scheduler"
+    currentView="month"
+    [dataSource]="dataSource"
+    [views]="['month']"
+    [currentDate]="currentDate"
+  >
+  </dx-scheduler>
+  <app-filter-form (filterValuesChanged)="onFilterValuesChanged($event)">
+  </app-filter-form>
 </div>

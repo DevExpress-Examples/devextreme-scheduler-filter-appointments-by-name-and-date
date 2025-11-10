@@ -1,20 +1,41 @@
 import { Component } from '@angular/core';
-import { ClickEvent } from 'devextreme/ui/button';
+import { DxSchedulerModule } from 'devextreme-angular';
+import { DataSource } from 'devextreme/common/data';
+import { appointments } from './data/appointments';
+import { FilterValues } from './interfaces';
+import { FilterFormComponent } from './components/filter-form/filter-form.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [DxSchedulerModule, FilterFormComponent],
 })
+
 export class AppComponent {
-  title = 'Angular';
+  dataSource: DataSource = new DataSource({
+    store: {
+      type: 'array',
+      data: appointments,
+    },
+    paginate: false,
+  });
 
-  counter = 0;
+  currentDate: Date = new Date(2022, 9, 1);
 
-  buttonText = 'Click count: 0';
+  onFilterValuesChanged(newFilterValues: FilterValues): void {
+    this.filterAppointments(newFilterValues);
+  }
 
-  onClick(e: ClickEvent): void {
-    this.counter++;
-    this.buttonText = `Click count: ${this.counter}`;
+  private filterAppointments(filterValues: FilterValues): void {
+    this.dataSource.filter([
+      ['text', 'contains', filterValues.text],
+      'and',
+      ['startDate', '>=', filterValues.startDate],
+      'and',
+      ['endDate', '<=', filterValues.endDate],
+    ]);
+    this.dataSource.load().catch(() => {});
   }
 }

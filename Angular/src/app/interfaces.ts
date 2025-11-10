@@ -1,5 +1,5 @@
 export interface FilterValues {
-  query: string;
+  text: string;
   startDate: Date;
   endDate: Date;
 }
