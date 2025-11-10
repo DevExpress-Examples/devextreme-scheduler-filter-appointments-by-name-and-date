@@ -1,0 +1,21 @@
+.demo-container {
+    margin: 50px;
+    width: 90vw;
+}
+
+.view-root {
+    display: flex;
+}
+
+body {
+    margin: 8px;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(221 221 221 / 60%);
+    width: 20%;
+    padding: 9px 20px;
+    margin-left: 10px;
+}

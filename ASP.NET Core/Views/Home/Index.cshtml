@@ -1,0 +1,79 @@
+@using ASP_NET_Core.Models
+
+<div class="view-root">
+    @(Html.DevExtreme().Scheduler()
+        .ID("scheduler")
+        .TextExpr("Text")
+        .StartDateExpr("StartDate")
+        .EndDateExpr("EndDate")
+        .DataSource(d => d.Mvc().Controller("AppointmentData").LoadAction("Get").Key("Id"))
+        .Views(views => {
+            views.Add().Type(SchedulerViewType.Month);
+        })
+        .Width("80%")
+        .CurrentView(SchedulerViewType.Month)
+        .CurrentDate(new DateTime(2022, 10, 1))
+    )
+
+    @(Html.DevExtreme().Form()
+        .ID("form")
+        .FormData(new JS("defaultFormData"))
+        .LabelMode(FormLabelMode.Outside)
+        .ColCount(1)
+        .Items(items => {
+            items.AddGroup().Caption("Filter Appointments").Items(groupItems => {
+                groupItems.AddSimple()
+                    .DataField("text")
+                    .Label(label => label.Text("Text"))
+                    .Editor(editor => editor.TextBox()
+                    .Placeholder("Filter...")
+                    .ValueChangeEvent("keyup")
+                    .OnValueChanged("filterEditorValueChanged")
+                );
+                groupItems.AddSimple()
+                    .DataField("startDate")
+                    .Label(label => label.Text("Start Date"))
+                    .Editor(editor => editor.DateBox()
+                    .Type(DateBoxType.Date)
+                    .OnValueChanged("filterEditorValueChanged")
+                );
+                groupItems.AddSimple()
+                    .DataField("endDate")
+                    .Label(label => label.Text("End Date"))
+                    .Editor(editor => editor.DateBox()
+                    .Type(DateBoxType.Date)
+                    .OnValueChanged("filterEditorValueChanged")
+                );
+            });
+        })
+        )
+</div>
+
+<script>
+    const defaultFormData = {
+        text: '',
+        startDate: new Date(2022, 9, 1),
+        endDate: new Date(2022, 9, 28),
+    };
+
+    function filterAppointments(filterValue, startDate, endDate) {
+        const dataSource = $("#scheduler").dxScheduler("getDataSource");
+        dataSource.filter([
+          ['Text', 'contains', filterValue],
+          'and',
+          ['StartDate', '>=', startDate],
+          'and',
+          ['EndDate', '<=', endDate],
+        ]);
+        dataSource.load();
+    };
+
+    function filterEditorValueChanged() {
+        const form = $("#form").dxForm("instance");
+        filterAppointments(
+            form.getEditor('text').option('value'),
+            form.getEditor('startDate').option('value'),
+            form.getEditor('endDate').option('value'),
+        );
+    };
+</script>
