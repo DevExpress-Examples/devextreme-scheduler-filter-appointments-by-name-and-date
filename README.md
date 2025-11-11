@@ -16,13 +16,19 @@ This example demonstrates how to use the resource navigator to filter Schedules 
 - **Angular**
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
+    - [filter-form.component.html](Angular/src/app/components/filter-form/filter-form.component.html)
+    - [filter-form.component.ts](Angular/src/app/components/filter-form/filter-form.component.ts)
 - **jQuery**
     - [index.html](jQuery/src/index.html)
     - [index.js](jQuery/src/index.js)
+- **ASP.NET Core**
+    - [Index.cshtml](ASP.NET%20Core/Views/Home/Index.cshtml)
 - **React**
-    - [App.js](React/src/App.js)
+    - [App.tsx](React/src/App.tsx)
+    - [FilterForm.tsx](React/src/components/FilterForm/FilterForm.tsx)
 - **Vue**
-    - [App.vue](Vue/src/App.vue)
+    - [HomeContent.vue](Vue/src/components/HomeContent.vue)
+    - [FilterForm.vue](Vue/src/components/FilterForm/FilterForm.vue)
 
 ## Documentation
 
