@@ -2,3 +2,14 @@
   margin: 50px;
   width: 90vw;
 }
+
+.filter-form {
+  width: 20%;
+  border: 1px solid rgba(221 221 221 / 60%);
+  padding: 9px 20px;
+  margin-left: 10px;
+}
+
+.container {
+  display: flex;
+}
