@@ -1,7 +1,6 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { AppComponent } from './app/app.component';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-bootstrapApplication(AppComponent)
-  .catch((err) => {
-    document.body.innerHTML = `<h1 style="color:red">Error: ${err}</h1>`;
-  });
+import { AppModule } from './app/app.module';
+
+platformBrowserDynamic().bootstrapModule(AppModule)
+  .catch((err) => console.error(err));
