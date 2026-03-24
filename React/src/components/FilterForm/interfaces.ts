@@ -5,6 +5,5 @@ export interface FilterValues {
 }
 
 export interface FilterFormProps {
-  // eslint-disable-next-line no-unused-vars
   filterValuesChanged: (values: FilterValues) => void;
 }

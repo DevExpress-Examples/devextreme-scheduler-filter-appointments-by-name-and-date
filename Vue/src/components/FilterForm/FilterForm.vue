@@ -6,7 +6,6 @@ import { type DxTextBoxTypes } from 'devextreme-vue/text-box';
 import type { FilterValues } from './interfaces';
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'filterValuesChanged', values: FilterValues): void
 }>();
 
