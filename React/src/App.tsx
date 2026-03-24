@@ -12,21 +12,6 @@ const currentDate: Date = new Date(2022, 9, 1);
 const views: SchedulerTypes.ViewType[] = ['month'];
 
 function App(): JSX.Element {
-  const filterValuesChanged = useCallback((newFilterValues: FilterValues) => {
-    filterAppointments(newFilterValues);
-  }, []);
-
-  const filterAppointments = useCallback((filterValues: FilterValues): void => {
-    dataSource.filter([
-      ['text', 'contains', filterValues.text],
-      'and',
-      ['startDate', '>=', filterValues.startDate],
-      'and',
-      ['endDate', '<=', filterValues.endDate],
-    ]);
-    dataSource.load().catch(() => { });
-  }, []);
-
   const dataSource = useMemo<DataSource>(
     (): DataSource => new DataSource({
       store: {
@@ -37,6 +22,21 @@ function App(): JSX.Element {
     }),
     [],
   );
+
+  const filterAppointments = useCallback((filterValues: FilterValues): void => {
+    dataSource.filter([
+      ['text', 'contains', filterValues.text],
+      'and',
+      ['startDate', '>=', filterValues.startDate],
+      'and',
+      ['endDate', '<=', filterValues.endDate],
+    ]);
+    dataSource.load().catch(() => { });
+  }, [dataSource]);
+
+  const filterValuesChanged = useCallback((newFilterValues: FilterValues) => {
+    filterAppointments(newFilterValues);
+  }, [filterAppointments]);
 
   return (
     <div className='container'>
