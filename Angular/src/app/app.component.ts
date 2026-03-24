@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { DxSchedulerModule } from 'devextreme-angular';
 import { DataSource } from 'devextreme/common/data';
 import { appointments } from './data/appointments';
 import { FilterValues } from './interfaces';
-import { FilterFormComponent } from './components/filter-form/filter-form.component';
 
 @Component({
   selector: 'app-root',
