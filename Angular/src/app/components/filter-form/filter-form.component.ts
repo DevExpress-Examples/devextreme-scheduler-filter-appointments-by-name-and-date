@@ -2,6 +2,7 @@ import {
   Component,
   Output,
   EventEmitter,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { DxDateBoxTypes } from 'devextreme-angular/ui/date-box';
 import { DxTextBoxTypes } from 'devextreme-angular/ui/text-box';
@@ -15,6 +16,7 @@ type EditorProps = DxDateBoxTypes.Properties | DxTextBoxTypes.Properties;
   templateUrl: './filter-form.component.html',
   styleUrls: ['filter-form.component.css'],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [DxFormModule],
 })
 

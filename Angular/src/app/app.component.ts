@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource } from 'devextreme/common/data';
 import { appointments } from './data/appointments';
 import { FilterValues } from './interfaces';
@@ -7,6 +7,7 @@ import { FilterValues } from './interfaces';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 
